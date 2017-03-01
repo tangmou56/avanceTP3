@@ -47,14 +47,14 @@ main( )
     }
   if(verbose==1)
   printf( "Test affichage liste d'individus AVANT tri \n" ) ;
-  liste_afficher( liste ,N,sizeof(individu_t),individu_afficher, ' ' ) ; 
+  liste_afficher( liste ,N,1,individu_afficher, ' ' ) ; 
   printf( "\n");
   if(verbose==1)
   printf( "Test Tri de la liste des individus\n" );
   liste_trier( liste  ) ;
   if(verbose==1)
   printf( "Test affichage liste d'individus APRES tri\n" ) ;
-  liste_afficher( liste ,N,sizeof(individu_t),individu_afficher, ' ' ) ; 
+  liste_afficher( liste ,N,1,individu_afficher, ' ' ) ; 
   printf( "\n");
   if(verbose==1)
   printf( "Test destruction liste d'individus\n" ) ;
@@ -73,14 +73,14 @@ main( )
     }
   if(verbose==1)
   printf( "Test affichage liste de fractions AVANT tri\n" ) ;
-  liste_afficher( liste , ' ' ) ; 
+  liste_afficher( liste ,N,1,fraction_afficher, ' ' ) ;  
   printf( "\n");
   if(verbose==1)
   printf( "Test Tri de la liste des fractions\n" );
   liste_trier( liste ) ;
   if(verbose==1)
   printf( "Test affichage liste des fractions APRES tri\n" ) ;
-  liste_afficher( liste ,  ' ' ) ; 
+  liste_afficher( liste ,N,1,fraction_afficher, ' ' ) ; 
   printf( "\n");
   if(verbose==1)
   printf( "Test destruction liste de fractions\n" ) ;
@@ -102,14 +102,14 @@ main( )
     }
   if(verbose==1)
   printf( "Test affichage liste de strings AVANT tri\n" ) ;
-  liste_afficher( liste ,  ' ' ) ; 
+  liste_afficher( liste ,N,1,string_afficher, ' ' ) ; 
   printf( "\n");
   if(verbose==1)
   printf( "Test Tri de la liste des strings\n" );
   liste_trier( liste  ) ;
   if(verbose==1)
   printf( "Test affichage liste des strings APRES tri\n" ) ;
-  liste_afficher( liste ,  ' ' ) ; 
+  liste_afficher( liste ,N,1,string_afficher, ' ' ) ; 
   printf( "\n");
   if(verbose==1)
   printf( "Test destruction liste de strings\n" ) ;

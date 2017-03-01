@@ -152,7 +152,7 @@ void liste_afficher( liste_t * const liste ,int nb,int taille,void(*aff)(void *)
 {
   int i;
   for(i=0;i<nb;i++){
-	aff(liste+(i*taille));
+	aff(*((liste->liste)+(i*taille)));
   	printf("%c",sep);
   }
   return ;
