@@ -148,11 +148,13 @@ err_t liste_detruire( liste_t ** liste , ... )
  */
 
 extern 
-void liste_afficher( liste_t * const liste ,...)
+void liste_afficher( liste_t * const liste ,int nb,int taille,void(*aff)(void *),char sep)
 {
-  /*
-   * A FAIRE 
-   */
+  int i;
+  for(i=0;i<nb;i++){
+	aff(liste+(i*taille));
+  	printf("%c",sep);
+  }
   return ;
 }
 
