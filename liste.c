@@ -97,7 +97,7 @@ err_t liste_elem_ecrire( liste_t * liste ,
  * Creation d'une liste 
  */
 extern
-liste_t * liste_creer( const int nb )
+liste_t * liste_creer( const int nb ,void(*det)(void *))
 {
   liste_t * liste ;
   
@@ -108,6 +108,8 @@ liste_t * liste_creer( const int nb )
     }
 
   liste->nb = nb ;
+    liste->det=det;
+    liste->ajout=liste_elem_ecrire;
   liste->liste = (void**)NULL ;
   if( nb > 0 ) 
     {
@@ -131,11 +133,14 @@ liste_t * liste_creer( const int nb )
  */
 
 extern
-err_t liste_detruire( liste_t ** liste , ... )
+err_t liste_detruire( liste_t ** liste , int nb,int taille )
 {
-  /* 
-   * A FAIRE
-   */
+    int i;
+    for(i=0;i<nb;i++){
+        ((*liste)->det)(((*liste)->liste)+(i*taille));
+    }
+    free(*liste);
+    *liste=NULL;
   return(OK) ;
 }
 
@@ -166,11 +171,23 @@ void liste_afficher( liste_t * const liste ,int nb,int taille,void(*aff)(void *)
  */
 
 extern
-err_t liste_trier( liste_t * liste , ... )
+err_t liste_trier( liste_t * liste , int nb,int taille,int(*compare)(void*,void*) )
 {
-  /*
-   * A FAIRE 
-   */
+    int i=0;
+    void * w;
+    w=malloc(sizeof(taille));
+    while(i<nb-1){
+        if(compare((*((liste->liste)+(i*taille))),(*((liste->liste)+((i+1)*taille))))> 0){
+            w=(*((liste->liste)+(i*taille)));
+            (*((liste->liste)+(i*taille)))=(*((liste->liste)+((i+1)*taille)));
+            (*((liste->liste)+((i+1)*taille)))=w;
+             i=0;
+        }
+        else{
+            i++;
+        }
+    }
+    
 
   return(OK) ; 
 }

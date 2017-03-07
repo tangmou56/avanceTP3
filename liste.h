@@ -9,6 +9,8 @@
 
 typedef struct liste_s
 {
+    void(*det)(void *);
+    void(*ajout)(void *);
   int nb ;		/* Nombre d'objets dans la liste  */
   void ** liste ;	/* liste  des objets */
 } liste_t ;
@@ -62,13 +64,13 @@ extern err_t liste_elem_ecrire( liste_t * liste,
 /*!
  * Creation d'une liste 
  */
-extern liste_t * liste_creer( const int nb);
+extern liste_t * liste_creer( const int nb ,void(*det)(void *));
 
 /*!
  * Destruction d'une liste 
  */
 
-extern err_t liste_detruire( liste_t ** liste , ...) ; 
+err_t liste_detruire( liste_t ** liste , int nb,int taille ) ; 
 
 
 /*! 
@@ -91,7 +93,7 @@ extern void liste_afficher( liste_t * const liste ,int nb,int taille,void(*aff)(
  * tri d'une liste 
  */
 
-extern err_t liste_trier( liste_t * liste , ... ) ;
+extern err_t liste_trier( liste_t * liste , int nb,int taille,int(*compare)(void*,void*) );
 
 /*! @} */
 #endif

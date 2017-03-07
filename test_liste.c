@@ -37,12 +37,12 @@ main( )
   printf( "\nTest creation d'une liste de %d individus \n" , N ) ;
   char prenom[128] ;
   char nom[128] ; 
-  liste = liste_creer(N) ;  
+  liste = liste_creer(N,individu_detruire) ;
   for( i=0 ; i<N ; i++ ) 
     {
       sprintf( nom , "nom_%d" , N-i ) ;
       sprintf( prenom , "prenom_%d" , N-i ) ;
-      individus[i] = individu_creer( prenom , nom ) ; 
+      individus[i] = individu_creer( prenom , nom ) ;
       liste_elem_ecrire( liste , individus[i] , i ) ;
     }
   if(verbose==1)
@@ -51,21 +51,21 @@ main( )
   printf( "\n");
   if(verbose==1)
   printf( "Test Tri de la liste des individus\n" );
-  liste_trier( liste  ) ;
+    liste_trier(liste , N,1,individu_comparer);
   if(verbose==1)
   printf( "Test affichage liste d'individus APRES tri\n" ) ;
   liste_afficher( liste ,N,1,individu_afficher, ' ' ) ; 
   printf( "\n");
   if(verbose==1)
   printf( "Test destruction liste d'individus\n" ) ;
-  if( ( noerr = liste_detruire( &liste ) ) )
+  if( ( noerr = liste_detruire(&liste , N,1 ) ) )
     { 
       printf("Sortie avec code erreur = %d\n" , noerr ) ;
       return(noerr) ; 
     }
   if(verbose==1)
   printf( "\nTest creation d'une liste de %d fractions \n" , N ) ;
-  liste = liste_creer(N) ;  
+  liste = liste_creer(N,fraction_detruire) ;
   for( i=0 ; i<N ; i++ ) 
     {
       fractions[i] = fraction_creer( N-i , N-i+1 ) ; 
@@ -77,14 +77,14 @@ main( )
   printf( "\n");
   if(verbose==1)
   printf( "Test Tri de la liste des fractions\n" );
-  liste_trier( liste ) ;
+   liste_trier(liste , N,1,fraction_comparer);
   if(verbose==1)
   printf( "Test affichage liste des fractions APRES tri\n" ) ;
   liste_afficher( liste ,N,1,fraction_afficher, ' ' ) ; 
   printf( "\n");
   if(verbose==1)
   printf( "Test destruction liste de fractions\n" ) ;
-  if( ( noerr = liste_detruire( &liste ) ) )
+  if( ( noerr = liste_detruire(&liste , N,1) ) )
     { 
       printf("Sortie avec code erreur = %d\n" , noerr ) ;
       return(noerr) ; 
@@ -93,7 +93,7 @@ main( )
   if(verbose==1)
   printf( "\nTest creation d'une liste de %d strings \n" , N ) ;
   char string[128] ;
-  liste = liste_creer(N) ;  
+  liste = liste_creer(N,string_detruire) ;
   for( i=0 ; i<N ; i++ ) 
     {
       sprintf( string , "string_%d" , N-i ) ; 
@@ -106,14 +106,14 @@ main( )
   printf( "\n");
   if(verbose==1)
   printf( "Test Tri de la liste des strings\n" );
-  liste_trier( liste  ) ;
+   liste_trier(liste , N,1,string_comparer);
   if(verbose==1)
   printf( "Test affichage liste des strings APRES tri\n" ) ;
   liste_afficher( liste ,N,1,string_afficher, ' ' ) ; 
   printf( "\n");
   if(verbose==1)
   printf( "Test destruction liste de strings\n" ) ;
-  if( ( noerr = liste_detruire( &liste  ) ) )
+  if( ( noerr = liste_detruire(&liste , N,1 ) ) )
     { 
       printf("Sortie avec code erreur = %d\n" , noerr ) ;
       return(noerr) ; 
