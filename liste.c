@@ -138,7 +138,9 @@ err_t liste_detruire( liste_t ** liste , int nb,int taille )
     int i;
     for(i=0;i<nb;i++){
         ((*liste)->det)(((*liste)->liste)+(i*taille));
+	
     }
+    free((*liste)->liste);
     free(*liste);
     *liste=NULL;
   return(OK) ;
