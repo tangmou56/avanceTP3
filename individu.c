@@ -25,13 +25,36 @@ booleen_t individu_existe( individu_t * const individu )
 extern 
 err_t individu_detruire( individu_t ** individu ) 
 {
-
+  /* 
+   * l'Objet est detruit en profondeur 
+   */
   /* Liberation attributs */
   free( (*individu)->nom ) ; 
   free( (*individu)->prenom ) ; 
   /* Liberation memoire de l'objet */
   free( (*individu) ) ;
-  /* Pour eviter les pointeurs fous */
+  /* 
+   * Sa reference est effacee 
+   * Pour eviter les pointeurs fous 
+   */
+  (*individu) = NULL ; 
+
+  individu_cpt-- ; 
+
+  return(OK) ; 
+}
+
+
+err_t individu_effacer( individu_t ** individu ) 
+{
+  /* 
+   * l'Objet n'est pas detruit 
+   */
+
+  /* 
+   * Sa reference est effacee 
+   */
+  
   (*individu) = NULL ; 
 
   individu_cpt-- ; 
@@ -94,3 +117,29 @@ int individu_comparer( const individu_t * const ind1 , const individu_t * const 
   if( cmp ) return(cmp); 
   return( strcmp( ind1->prenom , ind2->prenom ) ) ;
 }
+
+
+extern
+err_t individu_copier( individu_t ** ind_cible ,  individu_t * ind_source )
+{
+  err_t noerr = OK ; 
+
+
+
+  if( ! individu_existe( ind_source ) )
+    return(OK) ; 
+
+  if( ( (*ind_cible) = individu_creer( ind_source->nom , 
+				       ind_source->prenom ) ) )
+    return(ERR_DEB_MEMOIRE) ; 
+
+  return(OK) ; 
+}
+
+extern
+err_t individu_referencer( individu_t ** ind_cible ,  individu_t * ind_source )
+{
+  (*ind_cible) = ind_source ; 
+  return(OK) ; 
+}
+

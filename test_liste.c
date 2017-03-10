@@ -8,7 +8,7 @@
 
 
 int
-main( ) 
+main(int argc,char *argv[] ) 
 {
   err_t noerr = OK; 
 
@@ -20,11 +20,18 @@ main( )
   int i = 0 ; 
   int N;
   int verbose;
+  if(argc>3||argc<2){
+  	printf("Nombre de argument faut\n");
+  	return 0;
+  }
+  for(i=1;i<argc;i++){
+  	if(strcmp(argv[i],"verbose")==0)verbose=1;
+  	else N=atoi(argv[i]);
+  }
+  int stock;
 
-  printf("Saisir le nombre d'objets : ");
-  scanf("%i",&N);
-  printf("Saisir 1 pour mode verbose : ");
-  scanf("%i",&verbose);
+
+
 
   individus = malloc( sizeof(individu_t *) * N )  ; 
   fractions = malloc( sizeof(fraction_t *) * N )  ;
@@ -37,7 +44,12 @@ main( )
   printf( "\nTest creation d'une liste de %d individus \n" , N ) ;
   char prenom[128] ;
   char nom[128] ; 
-  liste = liste_creer(N,individu_detruire) ;
+  printf("Stocké par 1-référencement 2-copie : ");
+  scanf("%i",&stock);
+  if(stock==1)
+ 	 liste = liste_creer(N,individu_effacer,individu_referencer) ;
+  else
+  	 liste = liste_creer(N,individu_detruire,individu_copier) ;
   for( i=0 ; i<N ; i++ ) 
     {
       sprintf( nom , "nom_%d" , N-i ) ;
@@ -65,7 +77,13 @@ main( )
     }
   if(verbose==1)
   printf( "\nTest creation d'une liste de %d fractions \n" , N ) ;
-  liste = liste_creer(N,fraction_detruire) ;
+  printf("Stocké par 1-référencement 2-copie : ");
+  scanf("%i",&stock);
+  if(stock==1)
+ 	 liste = liste_creer(N,fraction_effacer,fraction_referencer) ;
+  else
+  	 liste = liste_creer(N,fraction_detruire,fraction_copier) ;
+
   for( i=0 ; i<N ; i++ ) 
     {
       fractions[i] = fraction_creer( N-i , N-i+1 ) ; 
@@ -93,7 +111,12 @@ main( )
   if(verbose==1)
   printf( "\nTest creation d'une liste de %d strings \n" , N ) ;
   char string[128] ;
-  liste = liste_creer(N,string_detruire) ;
+    printf("Stocké par 1-référencement 2-copie : ");
+  scanf("%i",&stock);
+  if(stock==1)
+ 	 liste = liste_creer(N,string_effacer,string_referencer) ;
+  else
+  	 liste = liste_creer(N,string_detruire,string_copier) ;
   for( i=0 ; i<N ; i++ ) 
     {
       sprintf( string , "string_%d" , N-i ) ; 
@@ -119,9 +142,56 @@ main( )
       return(noerr) ; 
     }
 
+/* ---------- */
+
+  printf( "\nDestructions des variables de travail\n" ) ;
+
+  printf( "\tindividus..." ) ; fflush(stdout) ; 
+
+  for( i=0 ; i<N ; i++ ) 
+    {
+      if( ( noerr = individu_detruire( &individus[i] ) ) )
+	{ 
+	  printf("Sortie avec code erreur = %d\n" , noerr ) ;
+	  exit(-1) ; 
+	}
+    }
+
   free( individus ) ;
+  printf("OK\n"); 
+
+
+  printf( "\tfractions..." ) ; fflush(stdout) ; 
+
+  for( i=0 ; i<N ; i++ ) 
+    {
+      if( ( noerr = fraction_detruire( &fractions[i] ) ) )
+	{ 
+	  printf("Sortie avec code erreur = %d\n" , noerr ) ;
+	  exit(-1) ; 
+	}
+    }
+
   free( fractions ) ;
+  printf("OK\n"); 
+
+  
+  printf( "\tstrings..." ) ; fflush(stdout) ; 
+
+  for( i=0 ; i<N ; i++ ) 
+    {
+      if( ( noerr =string_detruire( &strings[i] ) ) )
+	{ 
+	  printf("Sortie avec code erreur = %d\n" , noerr ) ;
+	  exit(-1) ; 
+	}
+    }
+
   free( strings ) ; 
+  printf("OK\n"); 
+
+  
+  /* ---------- */
 
   printf( "\nFin du programme des test sur la lste d'objets homogenes\n" ) ; 
   

@@ -13,6 +13,10 @@ unsigned long int fraction_cpt = 0 ;
  * FONCTIONS
  */
 
+/*
+ * Test d'existance 
+ */
+
 extern 
 booleen_t fraction_existe( fraction_t * const fraction )
 {
@@ -21,6 +25,10 @@ booleen_t fraction_existe( fraction_t * const fraction )
   else
     return(VRAI) ; 
 }
+
+/*
+ * Destruction 
+ */
 
 extern
 err_t fraction_detruire( fraction_t ** fraction ) 
@@ -37,6 +45,28 @@ err_t fraction_detruire( fraction_t ** fraction )
   return(OK) ; 
 }
 
+/*
+ * Effacement 
+ */
+
+extern
+err_t fraction_effacer( fraction_t ** fraction ) 
+{
+  /* 
+   * l'Objet n'est pas detruit 
+   * Sa reference est effacee 
+   */
+  
+  (*fraction) = NULL ; 
+
+  fraction_cpt-- ; 
+
+  return(OK) ; 
+}
+
+/* 
+ * Affichage 
+ */
 extern
 void fraction_afficher( fraction_t * const fraction ) 
 {
@@ -48,6 +78,10 @@ void fraction_afficher( fraction_t * const fraction )
     }
   printf( "}" ) ; 
 }
+
+/*
+ * Creation 
+ */
 
 extern 
 fraction_t * fraction_creer( const int numerateur , const int denominateur ) 
@@ -71,6 +105,10 @@ fraction_t * fraction_creer( const int numerateur , const int denominateur )
   return( fraction ) ;
 }
 
+/* 
+ * Comparaison 
+ */
+
 extern
 int fraction_comparer( const fraction_t * const f1 , const fraction_t * const f2 ) 
 {
@@ -81,4 +119,34 @@ int fraction_comparer( const fraction_t * const f1 , const fraction_t * const f2
   return(-1) ;   
 }
 
+/*
+ * Affectation d'une fraction par reference 
+ */
 
+extern
+err_t fraction_referencer( fraction_t ** frac_cible ,  fraction_t * frac_source )
+{
+  (*frac_cible) = frac_source ; 
+  return(OK) ; 
+}
+
+/*
+ * Affectation d'une fraction par copie 
+ */
+
+extern
+err_t fraction_copier( fraction_t ** frac_cible ,  fraction_t * frac_source )
+{
+  err_t noerr = OK ; 
+
+
+
+  if( ! fraction_existe( frac_source ) )
+    return(OK) ; 
+
+  if( ( (*frac_cible) = fraction_creer( frac_source->numerateur , 
+					frac_source->denominateur ) ) )
+    return(ERR_DEB_MEMOIRE) ; 
+
+  return(OK) ; 
+}
