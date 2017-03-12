@@ -118,6 +118,15 @@ int individu_comparer( const individu_t * const ind1 , const individu_t * const 
   return( strcmp( ind1->prenom , ind2->prenom ) ) ;
 }
 
+extern
+int individu_comparer_qsort( const individu_t ** const ind1 , const individu_t ** const ind2 )
+{
+    int cmp = strcmp( (*ind1)->nom , (*ind2)->nom )  ;
+    if( cmp ) return(cmp);
+    return( strcmp( (*ind1)->prenom , (*ind2)->prenom ) ) ;
+}
+
+
 
 extern
 err_t individu_copier( individu_t ** ind_cible ,  individu_t * ind_source )

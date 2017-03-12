@@ -115,8 +115,8 @@ int fraction_comparer( const fraction_t * const f1 , const fraction_t * const f2
   float r1 = (float) f1->numerateur / f1->denominateur  ; 
   float r2 = (float) f2->numerateur / f2->denominateur  ; 
   if( r1 == r2 ) return(0) ; 
-  if( r1 > r2 )  return(1) ; 
-  return(-1) ;   
+  if( r1 > r2 )  return(1) ;
+  return(-1) ;
 }
 
 /*

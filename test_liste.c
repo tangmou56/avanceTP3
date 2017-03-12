@@ -63,7 +63,7 @@ main(int argc,char *argv[] )
   printf( "\n");
   if(verbose==1)
   printf( "Test Tri de la liste des individus\n" );
-    liste_trier(liste , N,1,individu_comparer);
+    liste_trier_qsort(liste , N,sizeof(void *),individu_comparer_qsort);
   if(verbose==1)
   printf( "Test affichage liste d'individus APRES tri\n" ) ;
   liste_afficher( liste ,N,1,individu_afficher, ' ' ) ; 

@@ -202,6 +202,6 @@ err_t liste_trier( liste_t * liste , int nb,int taille,int(*compare)(void*,void*
 extern
 err_t liste_trier_qsort( liste_t * liste , int nb,int taille,int(*compare)(void*,void*) )
 {
-	qsort(liste,nb,taille,compare);
+	qsort((liste->liste),nb,taille,compare);
 	return(OK);
 }
