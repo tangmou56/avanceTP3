@@ -6,6 +6,9 @@
 #define LISTE_NULL NULL
 #define LISTE_ID_NULL -1
 
+typedef enum type_tri_s{QUICK,PERSO} type_tri_t;
+
+
 
 typedef struct liste_s
 {
@@ -93,7 +96,9 @@ extern void liste_afficher( liste_t * const liste ,int nb,int taille,void(*aff)(
  * tri d'une liste 
  */
 
-extern err_t liste_trier( liste_t * liste , int nb,int taille,int(*compare)(void*,void*) );
+extern err_t liste_trier_bulle( liste_t * liste , int nb,int taille,int(*compare)(void*,void*) );
 extern err_t liste_trier_qsort( liste_t * liste , int nb,int taille,int(*compare)(void*,void*) );
+extern err_t liste_trier( liste_t * liste , int nb,int taille,int(*comparep)(void*,void*),int(*compareq)(void*,void*),type_tri_t type);
+
 /*! @} */
 #endif

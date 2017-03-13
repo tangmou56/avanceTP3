@@ -35,6 +35,8 @@ extern err_t string_effacer( string_t ** string ) ;
 extern void string_afficher( string_t * const string ) ;
 /* Comparaisons */
 extern int string_comparer( const string_t * const str1 , const string_t * const str2 ) ;
+extern int string_comparer_qsort( const string_t ** const str1 , const string_t ** const str2 );
+
 /* Referencements */
 extern err_t string_referencer( string_t ** str_cible ,  string_t * str_source ) ;
 /* Copies */

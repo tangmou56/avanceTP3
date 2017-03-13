@@ -109,7 +109,7 @@ liste_t * liste_creer( const int nb ,void(*det)(void *),void(*affect)(void *,voi
       fprintf( stderr , "liste_creer: debordement memoire lors de la creation d'une liste\n");
       return((liste_t *)NULL);
     }
-
+/*affectation des fonctions dans la structure*/
   liste->nb = nb ;
     liste->det=det;
     liste->ajout=affect;
@@ -177,7 +177,7 @@ void liste_afficher( liste_t * const liste ,int nb,int taille,void(*aff)(void *)
  */
 
 extern
-err_t liste_trier( liste_t * liste , int nb,int taille,int(*compare)(void*,void*) )
+err_t liste_trier_bulle( liste_t * liste , int nb,int taille,int(*compare)(void*,void*) )
 {
     int i=0;
     void * w;
@@ -205,3 +205,24 @@ err_t liste_trier_qsort( liste_t * liste , int nb,int taille,int(*compare)(void*
 	qsort((liste->liste),nb,taille,compare);
 	return(OK);
 }
+
+
+extern
+err_t liste_trier( liste_t * liste , int nb,int taille,int(*comparep)(void*,void*),int(*compareq)(void*,void*),type_tri_t type)
+{
+	switch(type){
+		case QUICK:liste_trier_qsort(liste,nb,taille,compareq);break;
+		case PERSO:liste_trier_bulle(liste,nb,1,comparep);break;
+		default :liste_trier_qsort(liste,nb,taille,compareq);
+	}
+	return (OK);
+
+}
+
+
+
+
+
+
+
+

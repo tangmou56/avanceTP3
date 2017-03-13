@@ -37,6 +37,7 @@ extern err_t fraction_effacer( fraction_t ** fraction ) ;
 extern void fraction_afficher( fraction_t * const fraction ) ;
 /* Comparaisons */
 extern int fraction_comparer( const fraction_t * const f1 , const fraction_t * const f2 ) ;
+extern int fraction_comparer_qsort( const fraction_t ** const f1 , const fraction_t ** const f2 ) ;
 /* Referencements */
 extern err_t fraction_referencer( fraction_t ** frac_cible ,  fraction_t * frac_source ) ;
 /* Copies */

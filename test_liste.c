@@ -5,7 +5,7 @@
 #include <fraction.h>
 #include <mystring.h>
 #include <liste.h>
-
+#include <unistd.h>
 
 int
 main(int argc,char *argv[] ) 
@@ -20,26 +20,26 @@ main(int argc,char *argv[] )
   int i = 0 ; 
   int N;
   int verbose;
-  if(argc>3||argc<2){
+  type_tri_t type=QUICK;
+  if(argc>4||argc<2){
   	printf("Nombre de argument faut\n");
   	return 0;
   }
+  N=atoi(argv[1]);
   for(i=1;i<argc;i++){
-  	if(strcmp(argv[i],"verbose")==0)verbose=1;
-  	else N=atoi(argv[i]);
+  	if(strcmp(argv[i],"-verbose")==0)verbose=1;
+	else if(strcmp(argv[i],"-t1")==0)type=PERSO;
+
   }
   int stock;
-
-
-
 
   individus = malloc( sizeof(individu_t *) * N )  ; 
   fractions = malloc( sizeof(fraction_t *) * N )  ;
   strings = malloc( sizeof(string_t *) * N )   ; 
 
   printf( "Debut du programme des test sur les listes de %d objets homogenes\n" , N ) ; 
-
-
+  if(type==PERSO)printf("Tri par bulle.\n");
+  else printf("Tri par qsort.\n");
   if(verbose==1)
   printf( "\nTest creation d'une liste de %d individus \n" , N ) ;
   char prenom[128] ;
@@ -63,7 +63,7 @@ main(int argc,char *argv[] )
   printf( "\n");
   if(verbose==1)
   printf( "Test Tri de la liste des individus\n" );
-    liste_trier_qsort(liste , N,sizeof(void *),individu_comparer_qsort);
+    liste_trier(liste , N,sizeof(void *),individu_comparer,individu_comparer_qsort,type);
   if(verbose==1)
   printf( "Test affichage liste d'individus APRES tri\n" ) ;
   liste_afficher( liste ,N,1,individu_afficher, ' ' ) ; 
@@ -95,7 +95,7 @@ main(int argc,char *argv[] )
   printf( "\n");
   if(verbose==1)
   printf( "Test Tri de la liste des fractions\n" );
-   liste_trier(liste , N,1,fraction_comparer);
+   liste_trier(liste , N,sizeof(void *),fraction_comparer,fraction_comparer_qsort,type);
   if(verbose==1)
   printf( "Test affichage liste des fractions APRES tri\n" ) ;
   liste_afficher( liste ,N,1,fraction_afficher, ' ' ) ; 
@@ -129,7 +129,7 @@ main(int argc,char *argv[] )
   printf( "\n");
   if(verbose==1)
   printf( "Test Tri de la liste des strings\n" );
-   liste_trier(liste , N,1,string_comparer);
+   liste_trier(liste , N,sizeof(void *),string_comparer,string_comparer_qsort,type);
   if(verbose==1)
   printf( "Test affichage liste des strings APRES tri\n" ) ;
   liste_afficher( liste ,N,1,string_afficher, ' ' ) ; 

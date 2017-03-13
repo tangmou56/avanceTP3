@@ -121,6 +121,12 @@ int string_comparer( const string_t * const str1 , const string_t * const str2 )
   return(strcmp( str1->string , str2->string) ) ;
 }
 
+extern
+int string_comparer_qsort( const string_t ** const str1 , const string_t ** const str2 )
+{
+  return(strcmp( (*str1)->string , (*str2)->string) ) ;
+}
+
 /*
  * Affectation d'une string par reference 
  */
